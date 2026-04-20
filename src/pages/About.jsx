@@ -1,290 +1,147 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+const values = [
+  { t: 'Craft', d: 'We sweat the details — in code, UX, and communication.' },
+  { t: 'Ownership', d: 'We treat client problems as our own. No finger-pointing, ever.' },
+  { t: 'Clarity', d: 'Honest timelines, honest trade-offs, honest status.' },
+  { t: 'Compounding', d: 'Every engagement should leave your team sharper than we found it.' },
+];
+
+const team = [
+  { name: 'Musfar A.', role: 'Founder & Principal Engineer', bio: 'Full-stack & AI systems. Ships pragmatic solutions to hard problems.', initials: 'MA' },
+  { name: 'AI Lead', role: 'Head of Machine Learning', bio: 'LLM systems, computer vision, and applied ML at production scale.', initials: 'AI' },
+  { name: 'Cloud Lead', role: 'Head of Platform', bio: 'Cloud architecture, DevOps and reliability engineering.', initials: 'CL' },
+  { name: 'Design Lead', role: 'Head of Product Design', bio: 'Product systems thinking with an obsession for craft.', initials: 'DL' },
+];
+
+const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 
 const About = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const teamMembers = [
-    {
-      name: 'Sarah Johnson',
-      role: 'CEO & Founder',
-      image: '👩‍💼',
-      bio: '15+ years in tech leadership and AI innovation',
-    },
-    {
-      name: 'Michael Chen',
-      role: 'CTO',
-      image: '👨‍💻',
-      bio: 'Expert in software architecture and cloud solutions',
-    },
-    {
-      name: 'Emily Rodriguez',
-      role: 'Head of AI Research',
-      image: '👩‍🔬',
-      bio: 'PhD in Machine Learning with 20+ research publications',
-    },
-    {
-      name: 'David Kim',
-      role: 'Lead Developer',
-      image: '👨‍💼',
-      bio: 'Full-stack expert with expertise in modern frameworks',
-    },
-    {
-      name: 'Lisa Wang',
-      role: 'Product Manager',
-      image: '👩‍💻',
-      bio: 'Passionate about user-centric product development',
-    },
-    {
-      name: 'James Brown',
-      role: 'DevOps Engineer',
-      image: '👨‍🔧',
-      bio: 'Specialist in cloud infrastructure and automation',
-    },
-  ];
-
-  const values = [
-    {
-      title: 'Innovation',
-      description: 'Constantly pushing boundaries with cutting-edge technology',
-      icon: '💡',
-    },
-    {
-      title: 'Excellence',
-      description: 'Delivering exceptional quality in every project',
-      icon: '⭐',
-    },
-    {
-      title: 'Collaboration',
-      description: 'Working closely with clients to achieve shared goals',
-      icon: '🤝',
-    },
-    {
-      title: 'Integrity',
-      description: 'Building trust through transparency and honesty',
-      icon: '🛡️',
-    },
-  ];
-
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-lighter to-dark">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
-        </div>
-
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="container mx-auto px-4 relative z-10"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-6xl font-bold text-center mb-6 text-gradient"
-          >
-            About Centricon
-          </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="text-xl text-gray-300 text-center max-w-3xl mx-auto"
-          >
-            Pioneering the future of AI and software solutions since 2015
-          </motion.p>
-        </motion.div>
-      </section>
-
-      {/* Company Overview */}
-      <section className="py-20 bg-dark">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="max-w-4xl mx-auto"
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold mb-8 text-white"
-            >
-              Our Story
-            </motion.h2>
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-300 mb-6"
-            >
-              Founded in 2015, Centricon emerged from a vision to bridge the gap between cutting-edge technology and practical business solutions. What started as a small team of passionate developers has grown into a leading force in AI and software innovation.
-            </motion.p>
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-300 mb-6"
-            >
-              Over the years, we've helped hundreds of companies transform their operations through intelligent automation, custom software solutions, and strategic technology consulting. Our commitment to excellence and innovation has made us a trusted partner for businesses worldwide.
-            </motion.p>
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-300"
-            >
-              Today, we continue to push the boundaries of what's possible, leveraging the latest advancements in artificial intelligence, machine learning, and cloud computing to deliver solutions that drive real business value.
+    <div>
+      {/* Hero */}
+      <section className="relative pt-40 pb-20 overflow-hidden bg-navy-deep">
+        <div className="absolute inset-0 bg-hero-glow opacity-70" />
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="relative container mx-auto px-4 lg:px-8">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-3xl">
+            <motion.span variants={fadeUp} className="eyebrow">About Centricon</motion.span>
+            <motion.h1 variants={fadeUp} className="mt-5 font-display text-5xl md:text-6xl font-bold text-white leading-tight">
+              A small team with a <span className="text-gradient">large surface area</span>.
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mt-5 text-lg text-slate-300 leading-relaxed">
+              Centricon is an AI & software studio. We partner with founders and engineering
+              leaders to design, build and operate the systems that move their business forward.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-20 bg-dark-lighter">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 gap-12"
-          >
-            <motion.div
-              variants={itemVariants}
-              className="bg-dark p-8 rounded-xl border border-gray-800"
-            >
-              <div className="text-5xl mb-4">🎯</div>
-              <h3 className="text-3xl font-bold mb-4 text-white">Our Mission</h3>
-              <p className="text-gray-300 text-lg">
-                To empower businesses worldwide with innovative AI and software solutions that drive growth, efficiency, and competitive advantage in the digital age.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              className="bg-dark p-8 rounded-xl border border-gray-800"
-            >
-              <div className="text-5xl mb-4">🔮</div>
-              <h3 className="text-3xl font-bold mb-4 text-white">Our Vision</h3>
-              <p className="text-gray-300 text-lg">
-                To be the global leader in AI-powered business transformation, setting new standards for innovation and excellence in technology solutions.
-              </p>
-            </motion.div>
-          </motion.div>
+      {/* Mission */}
+      <section className="py-24 bg-surface text-text-dark">
+        <div className="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-12 items-start">
+          <div>
+            <span className="eyebrow-dark">Our mission</span>
+            <h2 className="mt-4 section-title">Turn frontier tech into <span className="text-gradient">durable business value</span>.</h2>
+          </div>
+          <div className="space-y-5 text-text-muted text-lg leading-relaxed">
+            <p>
+              The gap between "interesting technology" and "reliable, revenue-generating product"
+              is where most teams lose months. We close it.
+            </p>
+            <p>
+              We pair strong engineering with strong product thinking. Every system we ship is
+              designed to be observable, maintainable, and legible to the team taking it over.
+            </p>
+            <p>
+              We deliberately stay small. Senior engineers, senior outcomes, no middle layer.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-20 bg-dark">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold text-center mb-16 text-white"
-            >
-              Our <span className="text-gradient">Values</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((value, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ y: -10 }}
-                  className="text-center"
-                >
-                  <div className="text-5xl mb-4">{value.icon}</div>
-                  <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
-                  <p className="text-gray-400">{value.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+      <section className="py-24 bg-navy">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-14">
+            <span className="eyebrow">Values</span>
+            <h2 className="mt-4 section-title text-white">Principles that <span className="text-gradient">shape the work</span>.</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {values.map((v) => (
+              <motion.div
+                key={v.t}
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                className="p-6 rounded-2xl glass hover:border-cyan/30 transition-colors"
+              >
+                <div className="font-display text-xl font-semibold text-white">{v.t}</div>
+                <p className="mt-2 text-slate-400 leading-relaxed">{v.d}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-dark-lighter">
-        <div className="container mx-auto px-4">
+      {/* Team */}
+      <section className="py-24 bg-navy-deep">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mb-14">
+            <span className="eyebrow">Team</span>
+            <h2 className="mt-4 section-title text-white">Senior by default.</h2>
+            <p className="mt-4 text-slate-400 text-lg">
+              A focused group of engineers, designers and strategists who've built at
+              startups and enterprises alike.
+            </p>
+          </div>
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-5"
           >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold text-center mb-16 text-white"
-            >
-              Meet Our <span className="text-gradient">Team</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="bg-dark p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300 text-center group"
-                >
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {member.image}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2 text-white">{member.name}</h3>
-                  <p className="text-primary font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-400 text-sm">{member.bio}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-dark to-primary">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
-          >
-            {[
-              { number: '500+', label: 'Projects Completed' },
-              { number: '200+', label: 'Happy Clients' },
-              { number: '50+', label: 'Team Members' },
-              { number: '8+', label: 'Years of Excellence' },
-            ].map((stat, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-4xl md:text-5xl font-bold text-white mb-2"
-                >
-                  {stat.number}
-                </motion.div>
-                <div className="text-blue-100">{stat.label}</div>
+            {team.map((m) => (
+              <motion.div
+                key={m.name}
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                className="p-6 rounded-2xl glass hover:border-cyan/30 transition-all"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan to-brand-blue flex items-center justify-center font-display font-bold text-navy-deep text-lg">
+                  {m.initials}
+                </div>
+                <div className="mt-5 font-display text-lg font-semibold text-white">{m.name}</div>
+                <div className="text-cyan text-sm font-medium">{m.role}</div>
+                <p className="mt-3 text-slate-400 text-sm leading-relaxed">{m.bio}</p>
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 bg-navy">
+        <div className="container mx-auto px-4 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-5">
+          {[
+            ['50+', 'Products shipped'],
+            ['10+', 'Years combined'],
+            ['4★', 'Avg NPS feedback'],
+            ['99.9%', 'Production uptime'],
+          ].map(([n, l]) => (
+            <div key={l} className="text-center p-6 rounded-2xl glass">
+              <div className="font-display text-4xl md:text-5xl font-bold text-gradient">{n}</div>
+              <div className="mt-2 text-slate-300 text-sm">{l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-20 bg-navy-deep text-center">
+        <div className="container mx-auto px-4 lg:px-8 max-w-2xl">
+          <h2 className="section-title text-white">Let's build something <span className="text-gradient">worth shipping</span>.</h2>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            <Link to="/contact" className="btn-primary">Get in touch</Link>
+            <Link to="/portfolio" className="btn-ghost">See our work</Link>
+          </div>
         </div>
       </section>
     </div>

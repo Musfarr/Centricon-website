@@ -1,379 +1,230 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import {
+  AIIcon, SoftwareIcon, CloudIcon, DataIcon,
+  DevOpsIcon, MobileIcon, ConsultingIcon, SecurityIcon,
+} from '../components/ServiceIcons';
+
+const services = [
+  {
+    id: 'ai', icon: AIIcon, title: 'AI & Machine Learning',
+    short: 'Production-grade AI — from custom models to embedded copilots.',
+    full: 'We design, train and deploy machine learning systems that move the needle. Whether it is an LLM-powered workflow, a computer vision pipeline, or a forecasting engine, we own it end-to-end — data, modelling, evaluation, and MLOps.',
+    features: ['Custom LLM & RAG systems', 'Computer vision pipelines', 'Forecasting & recommendations', 'MLOps & model monitoring', 'AI product strategy'],
+  },
+  {
+    id: 'software', icon: SoftwareIcon, title: 'Custom Software Development',
+    short: 'Full-stack platforms engineered to last.',
+    full: 'From greenfield SaaS to legacy modernisation, we build maintainable, testable, performant software. Strong typing, strong contracts, and continuous delivery from day one.',
+    features: ['SaaS & platform engineering', 'API design & integrations', 'Legacy modernisation', 'Event-driven architectures', 'Technical due diligence'],
+  },
+  {
+    id: 'cloud', icon: CloudIcon, title: 'Cloud & Infrastructure',
+    short: 'Resilient, cost-efficient cloud — AWS, Azure, GCP.',
+    full: 'We architect and operate cloud systems that scale without drama. Infrastructure as code, multi-region resilience, and finops built in.',
+    features: ['Cloud migration & modernisation', 'Kubernetes & serverless', 'Infrastructure as code', 'Cost & reliability engineering', 'Landing zones & multi-account'],
+  },
+  {
+    id: 'data', icon: DataIcon, title: 'Data Analytics & Engineering',
+    short: 'Turn data into a durable advantage.',
+    full: 'Pipelines, warehouses, semantic layers and BI that actually get used. We make analytics a product, not a side project.',
+    features: ['Modern data stack', 'Real-time streaming pipelines', 'Warehouse & lakehouse design', 'BI dashboards & semantic layer', 'Data governance'],
+  },
+  {
+    id: 'devops', icon: DevOpsIcon, title: 'DevOps & Automation',
+    short: 'Ship faster, safer — every single day.',
+    full: 'CI/CD, observability, and developer experience tuned to your team. We cut cycle time while increasing confidence in every release.',
+    features: ['CI/CD pipeline engineering', 'Observability & SRE practices', 'Automated testing strategy', 'Platform engineering', 'Security & compliance automation'],
+  },
+  {
+    id: 'mobile', icon: MobileIcon, title: 'Web & Mobile Apps',
+    short: 'Products that feel premium on every surface.',
+    full: 'React, React Native, Next.js, Flutter — we craft interfaces that are fast, accessible and beautiful. Design and engineering working as one team.',
+    features: ['Next.js & React web apps', 'React Native & Flutter', 'Design systems & UX', 'Performance engineering', 'Accessibility & i18n'],
+  },
+  {
+    id: 'consulting', icon: ConsultingIcon, title: 'Technology Consulting',
+    short: 'Strategic clarity for leadership teams.',
+    full: 'Architecture reviews, org design, technology strategy. We help leaders choose the right bets and execute them without regret.',
+    features: ['Architecture & code audits', 'Technology strategy', 'Team topology & hiring', 'Vendor & stack selection', 'Fractional CTO engagements'],
+  },
+];
+
+const technologies = [
+  'Python', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Go', 'Rust',
+  'PyTorch', 'TensorFlow', 'LangChain', 'OpenAI', 'AWS', 'GCP', 'Azure',
+  'Kubernetes', 'Docker', 'Terraform', 'PostgreSQL', 'Snowflake', 'Kafka',
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
 
 const Services = () => {
-  const [selectedService, setSelectedService] = useState(null);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const services = [
-    {
-      id: 1,
-      title: 'AI & Machine Learning',
-      icon: '🤖',
-      shortDesc: 'Intelligent solutions powered by cutting-edge AI technology',
-      fullDesc: 'Our AI and Machine Learning services help businesses leverage the power of artificial intelligence to automate processes, gain insights, and make data-driven decisions. We specialize in custom ML models, natural language processing, computer vision, and predictive analytics.',
-      features: [
-        'Custom ML model development',
-        'Natural Language Processing',
-        'Computer Vision solutions',
-        'Predictive Analytics',
-        'AI Integration & Deployment',
-      ],
-    },
-    {
-      id: 2,
-      title: 'Software Development',
-      icon: '💻',
-      shortDesc: 'Custom software solutions tailored to your needs',
-      fullDesc: 'We build scalable, secure, and high-performance software applications that drive business growth. Our full-stack development team creates custom solutions using the latest technologies and best practices.',
-      features: [
-        'Web Application Development',
-        'Mobile App Development',
-        'Enterprise Software Solutions',
-        'API Development & Integration',
-        'Legacy System Modernization',
-      ],
-    },
-    {
-      id: 3,
-      title: 'Cloud Solutions',
-      icon: '☁️',
-      shortDesc: 'Scalable cloud infrastructure and migration services',
-      fullDesc: 'Transform your business with our comprehensive cloud services. We help organizations migrate to the cloud, optimize infrastructure, and build cloud-native applications that scale with your business.',
-      features: [
-        'Cloud Migration Services',
-        'AWS, Azure, GCP Solutions',
-        'Cloud Architecture Design',
-        'Serverless Applications',
-        'Cloud Security & Compliance',
-      ],
-    },
-    {
-      id: 4,
-      title: 'Data Analytics',
-      icon: '📊',
-      shortDesc: 'Transform data into actionable insights',
-      fullDesc: 'Unlock the full potential of your data with our advanced analytics services. We help businesses collect, process, and analyze data to drive informed decision-making and strategic growth.',
-      features: [
-        'Business Intelligence Dashboards',
-        'Data Warehousing',
-        'Real-time Analytics',
-        'Data Visualization',
-        'Big Data Processing',
-      ],
-    },
-    {
-      id: 5,
-      title: 'DevOps & Automation',
-      icon: '⚙️',
-      shortDesc: 'Streamline deployment and continuous integration',
-      fullDesc: 'Accelerate your development lifecycle with our DevOps services. We implement CI/CD pipelines, infrastructure as code, and automated testing to improve efficiency and reliability.',
-      features: [
-        'CI/CD Pipeline Implementation',
-        'Infrastructure as Code',
-        'Container Orchestration (Kubernetes)',
-        'Automated Testing',
-        'Monitoring & Logging',
-      ],
-    },
-    {
-      id: 6,
-      title: 'Technology Consulting',
-      icon: '💡',
-      shortDesc: 'Expert guidance for digital transformation',
-      fullDesc: 'Navigate the complex technology landscape with our strategic consulting services. We provide expert guidance on technology strategy, digital transformation, and innovation.',
-      features: [
-        'Technology Strategy & Planning',
-        'Digital Transformation Consulting',
-        'Architecture Review & Assessment',
-        'Technology Stack Selection',
-        'Innovation Workshops',
-      ],
-    },
-  ];
-
-  const technologies = [
-    { name: 'Python', icon: '🐍' },
-    { name: 'JavaScript', icon: '⚡' },
-    { name: 'React', icon: '⚛️' },
-    { name: 'Node.js', icon: '🟢' },
-    { name: 'TensorFlow', icon: '🧠' },
-    { name: 'AWS', icon: '☁️' },
-    { name: 'Docker', icon: '🐳' },
-    { name: 'Kubernetes', icon: '☸️' },
-  ];
-
-  const caseStudies = [
-    {
-      title: 'AI-Powered Customer Service',
-      client: 'Global Retail Chain',
-      result: '60% reduction in response time',
-      description: 'Implemented an AI chatbot solution that handles 10K+ customer inquiries daily.',
-    },
-    {
-      title: 'Cloud Migration & Optimization',
-      client: 'Financial Services Company',
-      result: '45% cost reduction',
-      description: 'Migrated legacy infrastructure to AWS, improving scalability and reducing costs.',
-    },
-    {
-      title: 'Custom ERP Solution',
-      client: 'Manufacturing Corporation',
-      result: '80% process efficiency gain',
-      description: 'Built a custom ERP system that streamlined operations across 5 facilities.',
-    },
-  ];
+  const [selected, setSelected] = useState(null);
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-lighter to-dark">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
-        </div>
-
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="container mx-auto px-4 relative z-10"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-6xl font-bold text-center mb-6 text-gradient"
-          >
-            Our Services
-          </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="text-xl text-gray-300 text-center max-w-3xl mx-auto"
-          >
-            Comprehensive technology solutions to drive your business forward
-          </motion.p>
-        </motion.div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-20 bg-dark">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {services.map((service) => (
-              <motion.div
-                key={service.id}
-                variants={itemVariants}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-dark-lighter p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedService(service)}
-              >
-                <div className="text-5xl mb-4">{service.icon}</div>
-                <h3 className="text-2xl font-semibold mb-3 text-white">{service.title}</h3>
-                <p className="text-gray-400 mb-4">{service.shortDesc}</p>
-                <motion.button
-                  whileHover={{ x: 5 }}
-                  className="text-primary font-medium flex items-center"
-                >
-                  Learn More
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M9 5l7 7-7 7" />
-                  </svg>
-                </motion.button>
-              </motion.div>
-            ))}
+    <div>
+      {/* Hero */}
+      <section className="relative pt-40 pb-20 overflow-hidden bg-navy-deep">
+        <div className="absolute inset-0 bg-hero-glow opacity-70" />
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="relative container mx-auto px-4 lg:px-8">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-3xl">
+            <motion.span variants={fadeUp} className="eyebrow">Services</motion.span>
+            <motion.h1 variants={fadeUp} className="mt-5 font-display text-5xl md:text-6xl font-bold text-white leading-tight">
+              End-to-end engineering for <span className="text-gradient">modern products</span>.
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mt-5 text-lg text-slate-300 leading-relaxed">
+              Seven focused practices, one integrated team. Each capability is deep enough to
+              stand alone — and designed to compound when they work together on your product.
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Service Details Modal */}
-      {selectedService && (
+      {/* Services Grid */}
+      <section className="py-24 bg-navy">
+        <div className="container mx-auto px-4 lg:px-8">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {services.map((s) => {
+              const Icon = s.icon;
+              return (
+                <motion.button
+                  key={s.id}
+                  variants={fadeUp}
+                  whileHover={{ y: -8 }}
+                  onClick={() => setSelected(s)}
+                  className="text-left group relative p-7 rounded-2xl glass hover:border-cyan/30 transition-all duration-300 overflow-hidden"
+                >
+                  <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full bg-cyan/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <div className="text-cyan w-14 h-14 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-5">
+                      <Icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="font-display text-xl font-semibold text-white mb-2">{s.title}</h3>
+                    <p className="text-slate-400 leading-relaxed mb-5">{s.short}</p>
+                    <span className="inline-flex items-center gap-1.5 text-cyan text-sm font-semibold">
+                      Learn more
+                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </span>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {selected && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedService(null)}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-navy-deep/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+          onClick={() => setSelected(null)}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-dark-lighter border border-gray-800 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+            initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }}
+            className="glass border border-white/10 rounded-3xl p-8 md:p-10 max-w-2xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <div className="text-5xl mb-4">{selectedService.icon}</div>
-                <h3 className="text-3xl font-bold text-white">{selectedService.title}</h3>
+            <div className="flex items-start justify-between mb-6">
+              <div className="text-cyan w-14 h-14 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+                <selected.icon className="w-8 h-8" />
               </div>
-              <button
-                onClick={() => setSelectedService(null)}
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+              <button onClick={() => setSelected(null)} className="text-slate-400 hover:text-white p-2" aria-label="Close">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
             </div>
-            <p className="text-gray-300 mb-6 text-lg">{selectedService.fullDesc}</p>
-            <h4 className="text-xl font-semibold text-white mb-4">Key Features:</h4>
-            <ul className="space-y-2 mb-6">
-              {selectedService.features.map((feature, index) => (
-                <li key={index} className="flex items-center text-gray-300">
-                  <svg className="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  {feature}
+            <h3 className="font-display text-3xl font-bold text-white">{selected.title}</h3>
+            <p className="mt-4 text-slate-300 leading-relaxed">{selected.full}</p>
+            <h4 className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-cyan">What's included</h4>
+            <ul className="mt-4 space-y-3">
+              {selected.features.map((f) => (
+                <li key={f} className="flex items-start gap-3 text-slate-200">
+                  <svg className="w-5 h-5 text-cyan flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  {f}
                 </li>
               ))}
             </ul>
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 w-full"
-              >
-                Get Started
-              </motion.button>
-            </Link>
+            <Link to="/contact" className="btn-primary w-full mt-8">Start a project</Link>
           </motion.div>
         </motion.div>
       )}
 
-      {/* Technologies */}
-      <section className="py-20 bg-dark-lighter">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold text-center mb-16 text-white"
-            >
-              Technologies We <span className="text-gradient">Master</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
-              {technologies.map((tech, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="bg-dark p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300 text-center"
-                >
-                  <div className="text-4xl mb-2">{tech.icon}</div>
-                  <p className="text-sm text-gray-300">{tech.name}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+      {/* Process */}
+      <section className="py-24 bg-surface text-text-dark">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-3xl mb-14">
+            <span className="eyebrow-dark">How we work</span>
+            <h2 className="mt-4 section-title">A process that <span className="text-gradient">respects</span> your time.</h2>
+          </div>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { n: '01', t: 'Discover', d: 'We dig into the problem, constraints and outcomes — not a template questionnaire.' },
+              { n: '02', t: 'Design', d: 'Architecture, scope and milestones you can actually stand behind.' },
+              { n: '03', t: 'Deliver', d: 'Weekly demos, continuous delivery, zero-surprise engineering.' },
+              { n: '04', t: 'Durable', d: 'Handover, documentation and team enablement — you own the outcome.' },
+            ].map((s) => (
+              <div key={s.n} className="p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-soft transition-all">
+                <div className="font-display text-5xl font-bold text-gradient">{s.n}</div>
+                <div className="mt-3 font-semibold text-lg">{s.t}</div>
+                <p className="mt-2 text-text-muted">{s.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Case Studies */}
-      <section className="py-20 bg-dark">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold text-center mb-16 text-white"
-            >
-              Success <span className="text-gradient">Stories</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {caseStudies.map((study, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ y: -10 }}
-                  className="bg-dark-lighter p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all duration-300"
-                >
-                  <h3 className="text-xl font-semibold mb-2 text-white">{study.title}</h3>
-                  <p className="text-primary font-medium mb-3">{study.client}</p>
-                  <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 mb-4">
-                    <p className="text-primary-light font-semibold">{study.result}</p>
-                  </div>
-                  <p className="text-gray-400">{study.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+      {/* Tech */}
+      <section className="py-24 bg-navy-deep">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-3xl mb-12">
+            <span className="eyebrow">Technologies</span>
+            <h2 className="mt-4 section-title text-white">
+              Tools we reach for — chosen <span className="text-gradient">deliberately</span>.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            {technologies.map((t) => (
+              <span key={t} className="px-4 py-2 rounded-full glass text-slate-200 text-sm hover:border-cyan/40 hover:text-cyan transition-colors">
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-dark to-primary">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl md:text-5xl font-bold mb-6 text-white"
-            >
-              Ready to Get Started?
-            </motion.h2>
-            <motion.p
-              variants={itemVariants}
-              className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto"
-            >
-              Let's discuss how our services can help transform your business
-            </motion.p>
-            <motion.div variants={itemVariants}>
-              <Link to="/contact">
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 1)' }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-white text-primary font-semibold px-8 py-4 rounded-lg transition-all duration-300"
-                >
-                  Contact Us Today
-                </motion.button>
-              </Link>
-            </motion.div>
-          </motion.div>
+      {/* Extra pillar */}
+      <section className="py-24 bg-navy">
+        <div className="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <div className="text-cyan w-14 h-14 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-5">
+              <SecurityIcon className="w-8 h-8" />
+            </div>
+            <h2 className="section-title text-white">Security & compliance, <span className="text-gradient">built-in</span>.</h2>
+            <p className="mt-4 text-slate-300 text-lg leading-relaxed">
+              Threat modelling, secure-by-default infra, SOC 2 / HIPAA-ready patterns,
+              and continuous scanning. We don't bolt security on at the end — it shapes the design.
+            </p>
+          </div>
+          <div className="glass rounded-2xl p-8 border border-white/10">
+            <ul className="space-y-3">
+              {['Zero-trust networking', 'Secret & key management', 'SBOM & dependency scanning', 'RBAC & audit logging', 'Compliance-ready controls'].map((f) => (
+                <li key={f} className="flex items-start gap-3 text-slate-200">
+                  <svg className="w-5 h-5 text-cyan flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </div>

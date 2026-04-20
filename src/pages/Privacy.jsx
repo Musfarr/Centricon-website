@@ -102,9 +102,8 @@ const Privacy = () => {
       title: 'Contact Us',
       content: [
         'If you have any questions or concerns about this privacy policy or our data practices, please contact us:',
-        'Email: privacy@centricon.com',
-        'Phone: +1 (555) 123-4567',
-        'Address: 123 Tech Street, Innovation City, CA 94000',
+        'Email: centricon.tech@gmail.com',
+        'Phone: +92 343 3021725',
       ],
     },
   ];
