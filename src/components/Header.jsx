@@ -39,11 +39,11 @@ const Header = () => {
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-2 group">
-            <img
+            {/* <img
               src="/assets/logo-horizontal.png"
               alt="Centricon"
               className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
+            /> */}
             <span className="font-display text-xl font-bold text-white tracking-tight hidden sm:inline">
               Centricon
             </span>
