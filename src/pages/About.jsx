@@ -9,7 +9,7 @@ const values = [
 ];
 
 const team = [
-  { name: 'Musfar A.', role: 'Founder & Principal Engineer', bio: 'Full-stack & AI systems. Ships pragmatic solutions to hard problems.', initials: 'MA' },
+  { name: 'A.', role: 'Founder & Principal Engineer', bio: 'Full-stack & AI systems. Ships pragmatic solutions to hard problems.', initials: 'MA' },
   { name: 'AI Lead', role: 'Head of Machine Learning', bio: 'LLM systems, computer vision, and applied ML at production scale.', initials: 'AI' },
   { name: 'Cloud Lead', role: 'Head of Platform', bio: 'Cloud architecture, DevOps and reliability engineering.', initials: 'CL' },
   { name: 'Design Lead', role: 'Head of Product Design', bio: 'Product systems thinking with an obsession for craft.', initials: 'DL' },
